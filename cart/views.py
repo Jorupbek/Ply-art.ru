@@ -15,8 +15,7 @@ def cart_add(request, product_id):
         cd = form.cleaned_data
         cart.add(product=product,
                  quantity=cd['quantity'],
-                 override_quantity=cd['override'],
-                 select=cd.get('select'))
+                 override_quantity=cd['override'])
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

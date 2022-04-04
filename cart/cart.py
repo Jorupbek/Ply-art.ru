@@ -29,7 +29,6 @@ class Cart(object):
                                      'image': product.images_set.first().images.url if product.images_set.first() else '',
                                      'pk': product.pk,
                                      'slug': product.slug,
-                                     'select': select
                                      }
         if override_quantity:
             self.cart[product_id]['quantity'] = quantity

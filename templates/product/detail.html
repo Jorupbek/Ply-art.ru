@@ -61,8 +61,6 @@
 
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
-                        <form action="{% url "cart:cart_add" product.id %}" method="post">
-                        {% csrf_token %}
                             <div class="product-details-content ">
 
                                 <h5 class="font-weight--reguler mb-10">{{ product.name|capfirst }}</h5>
@@ -76,8 +74,9 @@
                                 <div class="quickview-peragraph mt-10">
                                     <p>{{ product.description }}</p>
                                 </div>
-
-                                <div class="quickview-action-wrap mt-30">
+                                <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="quickview-action-wrap mt-30">
 
                                         <div class="quickview-cart-box">
                                             <div class="quickview-quality">
@@ -97,7 +96,8 @@
                                             </div>
                                         </div>
 
-                                </div>
+                                    </div>
+                                </form>
 
                                 <div class="product_meta mt-30">
                                     {% for x in product.attributes.all %}
@@ -113,7 +113,6 @@
 
 
                             </div>
-                        </form>
                         </div>
                     </div>
                 </div>
