@@ -18,7 +18,7 @@ class CategoryListView(ListView):
         if self.kwargs.get('category_slug'):
             category = get_object_or_404(Category, slug=self.kwargs['category_slug'])
             context['object_list'] = Product.objects.filter(category=category)[:self.paginate_by]
-        context['tags'] = Product.tags.most_common()
+        # context['tags'] = Product.tags.most_common()
         context['categories'] = Category.objects.all()
         context['cart_product_form'] = CartAddProductForm()
         context['category'] = category
@@ -29,10 +29,9 @@ class CategoryListView(ListView):
 def tagged(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
     posts = Product.objects.filter(tags=tag)
-    print(Product.tags.most_common())
     context = {
         'current_tag': tag,
-        'tags': Product.tags.most_common(),
+        # 'tags': Product.tags.most_common(),
         'object_list': posts,
         'categories': Category.objects.all()
     }

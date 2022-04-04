@@ -30,7 +30,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
-    tags = TaggableManager()
+    # tags = TaggableManager()
     attributes = models.ManyToManyField('Attributes', related_name='attributes')
     select_attributes = models.ManyToManyField('SelectAttribute', related_name='products',
                                                blank=True)
