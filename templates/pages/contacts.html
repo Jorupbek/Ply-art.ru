@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- breadcrumb-area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row breadcrumb_box  align-items-center">
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-center text-sm-start">
+                            <h2 class="breadcrumb-title">Контакты</h2>
+                        </div>
+                        <div class="col-lg-6  col-md-6 col-sm-6">
+                            <!-- breadcrumb-list start -->
+                            <ul class="breadcrumb-list text-center text-sm-end">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                                <li class="breadcrumb-item active">Контакты</li>
+                            </ul>
+                            <!-- breadcrumb-list end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb-area end -->
+
+    <div id="main-wrapper">
+        <div class="site-wrapper-reveal border-bottom">
+            <div class="contact-us-info-area mt-30 section-space--mb_60">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="single-contact-info-item">
+                                <div class="icon">
+                                    <i class="icon-clock3"></i>
+                                </div>
+                                <div class="iconbox-desc">
+                                    <h6 class="mb-10">График работы</h6>
+                                    <p>{{ contacts.work_from|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="single-contact-info-item">
+                                <div class="icon">
+                                    <i class="icon-telephone"></i>
+                                </div>
+                                <div class="iconbox-desc">
+                                    <h6 class="mb-10">Номер телефона</h6>
+                                    <p>
+                                        <a href="tel:{{ contacts.phone_number }}" class="hover-style-link">{{ contacts.phone_number }}</a><br>
+                                        <a href="tel:{{ contacts.phone_number2 }}" class="hover-style-link">{{ contacts.phone_number2 }}</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="single-contact-info-item">
+                                <div class="icon">
+                                    <i class="icon-envelope-open"></i>
+                                </div>
+                                <div class="iconbox-desc">
+                                    <h6 class="mb-10">Наша почта</h6>
+                                    <p><a href="mailto:{{ contacts.email }}" class="hover-style-link">{{ contacts.email }}</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="single-contact-info-item">
+                                <div class="iconbox-desc">
+                                    <h6 class="mb-10">Наш адрес</h6>
+                                    <p>{{ contacts.address }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-us-page-warpper section-space--pb_120">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="border-top">
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <div class="contact-form-wrap  section-space--mt_60">
+                                            <h5 class="mb-10">Напишите нам сообщение</h5>
+                                            <form action="{% url 'send_message' %}" class="mt-30" method="get" >
+                                                {% csrf_token %}
+                                                <div class="contact-form">
+                                                    <div class="contact-input">
+                                                        <div class="contact-inner">
+                                                            <input name="name" type="text" placeholder="Bаше имя *">
+                                                        </div>
+                                                        <div class="contact-inner">
+                                                            <input name="email" type="email" placeholder="Ваш email *">
+                                                        </div>
+                                                    </div>
+                                                    <div class="contact-inner contact-message">
+                                                        <textarea name="message"
+                                                                  placeholder="Пожалуйста, опишите, что вам нужно."></textarea>
+                                                    </div>
+                                                    <div class="submit-btn mt-20">
+                                                        <button class="btn btn--black btn--md" type="submit">Отправить
+                                                        </button>
+                                                        <p class="form-messege"></p>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 ms-auto">
+                                        <div class="conatact-info-text section-space--mt_60">
+                                            <h5 class="mb-10">Наш адрес</h5>
+                                            <p>Duis aute irure dolor in reprehenderit ioluptate velit esse cillum dolore
+                                                pariatur.</p>
+                                            <p class="mt-30">{{ contacts.address }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

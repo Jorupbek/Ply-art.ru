@@ -1,0 +1,152 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}
+{{ product.name|capfirst }} |
+{% endblock %}
+{% block content %}
+    <!-- breadcrumb-area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row breadcrumb_box  align-items-center">
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-center text-sm-start">
+                            <h2 class="breadcrumb-title">{{ product.name|capfirst }}</h2>
+                        </div>
+                        <div class="col-lg-6  col-md-6 col-sm-6">
+                            <!-- breadcrumb-list start -->
+                            <ul class="breadcrumb-list text-center text-sm-end">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                                <li class="breadcrumb-item active">{{ product.name|capfirst }}</li>
+                            </ul>
+                            <!-- breadcrumb-list end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb-area end -->
+
+    <div id="main-wrapper">
+        <div class="site-wrapper-reveal">
+
+            <div class="single-product-wrap section-space--pt_90 border-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12 mb-lg-3">
+                            <!-- Product Details Left -->
+                            <div class="product-details-left">
+                                <div class="product-details-images-2 slider-lg-image-2">
+                                    {% for x in product.images_set.all %}
+                                        <div class="easyzoom-style">
+                                            <div class="easyzoom easyzoom--overlay">
+                                                <a href="{{ x.images.url }}" class="poppu-img"> <img
+                                                        src="{{ x.images.url }}" class="img-fluid" alt=""> </a>
+                                            </div>
+                                        </div>
+                                    {% endfor%}
+
+                                </div>
+                                <div class="product-details-thumbs-2 slider-thumbs-2">
+                                    {% for x in product.images_set.all %}
+                                        <div class="sm-image">
+                                            <img src="{{ x.images.url }}" width="75" height="75"
+                                                 alt="product image thumb">
+                                        </div>
+                                    {% endfor%}
+                                </div>
+                            </div>
+                            <!--// Product Details Left -->
+
+
+                        </div>
+                        <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                        <form action="{% url "cart:cart_add" product.id %}" method="post">
+                        {% csrf_token %}
+                            <div class="product-details-content ">
+
+                                <h5 class="font-weight--reguler mb-10">{{ product.name|capfirst }}</h5>
+
+                                {% if product.sale %}
+                                    <div class="on-sale-price"><span class="new-price">{{ product.sale_percent }} ₽</span><span class="old-price">{{ product.price }} ₽</span> </div>
+                                {% else %}
+                                    <h3 class="price">{{ product.price }} ₽</h3>
+                                {% endif %}
+
+                                <div class="quickview-peragraph mt-10">
+                                    <p>{{ product.description }}</p>
+                                </div>
+                                {% for select in product.select_attributes.all %}
+                                    <div class="variable-color-selector mt-20 variations">
+                                        <label>{{ select.name }}</label>
+                                        <select class="attrs" name="attrs">
+                                            {% for attribute in select.selectchoice_set.all %}
+                                                <option name="select" id="select_value" value="{{ attribute }}" class="attached enabled">{{ attribute }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                {% endfor %}
+                                <input type="text" name="select" required="" id="id_select" hidden>
+
+                                <div class="quickview-action-wrap mt-30">
+
+                                        <div class="quickview-cart-box">
+                                            <div class="quickview-quality">
+                                            </div>
+                                            <div class="quickview-quality">
+                                                <div class="cart-plus-minus">
+                                                    <div class="dec qtybutton">-</div>
+                                                    <input class="cart-plus-minus-box" id="id_quantity" type="text" name="quantity" value="1">
+                                                    <div class="inc qtybutton">+</div></div>
+                                            </div>
+
+                                            <div class="quickview-button">
+                                                <div class="quickview-cart button">
+                                                    <input type="submit" value="Add to cart"
+                                                           class="btn--lg btn--black font-weight--reguler text-white">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                </div>
+
+                                <div class="product_meta mt-30">
+                                    {% for x in product.attributes.all %}
+                                        <div class="sku_wrapper item_meta">
+                                            <span class="label"> {{ x.name }}: </span> <span class="sku">{{ x.detail }}</span>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="posted_in item_meta">
+                                    <span class="label">Категория: </span><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
+                                </div>
+
+                                <div class="tagged_as item_meta">
+                                    <span class="label">Назначения: </span>
+                                    {% for tag in product.tags.all %}
+                                        <a href="{% url 'tagged' tag.slug %}">#{{ tag }}</a>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                        </form>
+
+                                <script>
+                                    let st1 = document.getElementById('id_select');
+                                    let st2 = document.getElementById('select_value');
+                                    const selectElement = document.querySelector('.attrs');
+                                    st1.value = st2.value
+
+                                    selectElement.addEventListener('change', (event) => {
+                                      st1.value = event.target.value;
+                                    });
+                                </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

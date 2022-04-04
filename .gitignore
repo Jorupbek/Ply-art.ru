@@ -1,0 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+
+# Django stuff:
+*.log
+
+# mypy
+.mypy_cache/
+media
+data
+.DS_Store
+.idea
+*.sqlite3

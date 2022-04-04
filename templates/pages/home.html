@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Главная |
+{% endblock %}
+{% block content %}
+
+    <div class="site-wrapper-reveal">
+            <div class="hero-box-area mt-md-0 mt-lg-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 ps-0 ps-lg-3 pe-0 pe-lg-3">
+                            <!-- Hero Slider Area Start -->
+                            <div class="hero-area hero-slider-one">
+                                {% for slide in slides %}
+                                    <div class="single-hero-slider-one bg-img"  data-bg="{{ slide.background.url }}">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="hero-text-one">
+                                                        <h1 class="hero-title">
+                                                            {{ slide.title|safe }}
+                                                        </h1>
+                                                        <p class="mt-30">{{slide.description|safe}}
+                                                        </p>
+                                                        {% if slide.link.url %}
+                                                        <div class="button-box mt-30">
+                                                            <a href="{{ slide.link.url }}" class="hero-btn-one btn">Купить <i class="icon-arrow-right"></i></a>
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <!-- Hero Slider Area End -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-box-area mt-lg-3">
+                <div class="container">
+                    <div class="row row--5">
+                        {% for c in categories|slice:'5' %}
+                            <div class="col-lg-{% cycle '3' '6' '3' '6' '6' as size %}
+                             col-md-{% cycle '3' '6' '3' '6' '6' as size %}">
+                                <div class="hero-product-image mt-10">
+                                    <a href="{{ c.get_absolute_url }}">
+                                        <img src="{{ c.image.url }}"
+                                             width="{% cycle '279' '568' '279' '568' '568' as width %}"
+                                             height="{% cycle '388' '388' '388' '245' '245' as height %}"
+                                             class="img-fluid" alt="Banner images">
+                                    </a>
+                                    <div class="product-banner-title">
+                                        <h4><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></h4>
+                                        <h6>{{ c.description }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- About us Area Start -->
+            <div class="about-us-home-area mt-lg-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="about-us-min-content ">
+                                <div class="container-fluid ps-0 pe-0">
+                                    <div class="row gx-0 align-items-center bg-gray">
+                                        <div class="col-lg-7">
+                                            <div class="about-us-content-4 ">
+                                                <h5 class="mb-30">About Us</h5>
+                                                <p class="pb-lg-5">Minimalist styling is not about creating a cold, hard, empty white box of a home. It is about using simple and natural forms, and taking away layers without losing the aesthetic appeal of the space. The focus is on shape, colour and texture, with a furniture and accessories.</p>
+                                                <div class="button-box section-space--mt_60">
+                                                    <a href="#" class="btn--text-icon">See more <i class="arrow_carrot-2right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="elendo-video-box">
+                                                <div class="video-icon">
+                                                    <a href="#" class="popup-youtube"><i class="linear-ic-play"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- About us Area End -->
+
+            <!-- Product Area Start -->
+            <div class="product-wrapper section-space--ptb_120">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4">
+                            <div class="section-title text-lg-start text-center mb-20">
+                                <h3 class="section-title">Лучшие товары</h3>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-content mt-30">
+                        <div class="tab-pane fade show active" id="tab_list_01">
+                            <!-- product-slider-active -->
+                            <div class="row">
+                                {% for product in products %}
+                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                        <!-- Single Product Item Start -->
+                                        <div class="single-product-item text-center">
+                                            <div class="products-images">
+                                                <a href="{{ product.get_absolute_url }}" class="product-thumbnail">
+                                                    <img
+                                                        src="{% if product.images_set.first.images %}
+                                                                {{ product.images_set.first.images.url }}
+                                                             {% else %}{% static 'no-image.png' %}{% endif %}"
+                                                        class="img-fluid" alt="Product Images" width="300"
+                                                        height="300">
+                                                    {% if product.hots %}
+                                                        <span class="ribbon out-of-stock">
+                                                        HOTS
+                                                    </span>
+                                                    {% elif product.sale %}
+                                                        <span class="ribbon onsale">
+                                                        SALE
+                                                    </span>
+                                                    {% endif %}
+                                                </a>
+                                                <div class="product-actions">
+                                                    <form action="{% url "cart:cart_add" product.id %}"
+                                                          method="post">
+                                                        {% csrf_token %}
+                                                        <p style="display: none">{{ cart_product_form }}</p>
+                                                        <button style="border: none;"><i
+                                                                class="p-icon icon-bag2"></i> <span
+                                                                class="tool-tip">Add to cart</span></button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h6 class="prodect-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                                </h6>
+                                                <div class="prodect-price">
+                                                    {#                                    <span class="new-price">£40.00</span> - <span class="old-price"> £635.00</span>#}
+                                                    <span class="old-price"> {{ product.price }} ₽</span>
+                                                </div>
+                                            </div>
+                                        </div><!-- Single Product Item End -->
+                                    </div>
+                                {% endfor %}
+                                <div class="button-box text-center">
+                                    <a href="{% url "product_list" %}" class="btn">Посмотреть все</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Product Area End -->
+        </div>
+{% endblock %}
+

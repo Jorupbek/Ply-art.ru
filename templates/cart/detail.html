@@ -1,0 +1,140 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}
+Корзина |
+{% endblock %}
+{% block content %}
+    <!-- breadcrumb-area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row breadcrumb_box  align-items-center">
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-center text-sm-start">
+                            <h2 class="breadcrumb-title">Корзина</h2>
+                        </div>
+                        <div class="col-lg-6  col-md-6 col-sm-6">
+                            <!-- breadcrumb-list start -->
+                            <ul class="breadcrumb-list text-center text-sm-end">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                                <li class="breadcrumb-item active">Корзина</li>
+                            </ul>
+                            <!-- breadcrumb-list end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb-area end -->
+
+
+    <style>
+    th, td {
+        text-align: center;
+    }
+    </style>
+
+    <div id="main-wrapper">
+        <div class="site-wrapper-reveal border-bottom">
+
+            <!-- cart start -->
+            <div class="cart-main-area  section-space--ptb_90">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form action="#">
+                                <div class="table-content table-responsive cart-table-content header-color-gray">
+                                    <table>
+                                        <thead>
+                                        <tr class="bg-gray">
+                                            <th></th>
+                                            <th class="product-name">Товар</th>
+                                            <th class="product-price">Цена</th>
+                                            <th>Кол-во</th>
+                                            <th class="product-price">Итого</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in cart %}
+                                            {% with product=item.product %}
+                                                <tr>
+                                                    <td class="product-img">
+                                                        <a href="{% url 'product_detail' product.slug %}"><img src="
+                                                            {% if item.image %}
+                                                                {{ item.image }}
+                                                            {% else %}
+                                                                {% static 'no-image.png' %}
+                                                            {% endif %}" width="76" height="76" alt="">
+                                                        </a>
+                                                    </td>
+                                                    <td class="product-name"><a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a></td>
+
+                                                    <td class="product-price"><span
+                                                            class="amount">{{ item.price }}</span></td>
+
+                                                    <td class="cart-quality">
+                                                        {{ item.quantity }}
+                                                    </td>
+
+                                                    <td class="price-total">
+                                                        <span class="amount">{{ item.total_price }}</span>
+                                                    </td>
+                                                    <td class="product-remove">
+                                                        <a href="{% url "cart:cart_remove" product.id %}"><i
+                                                                class="icon_close"></i></a>
+                                                    </td>
+                                                </tr>
+                                            {% endwith %}
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                            <div class="shoping-update-area row">
+                                <div class="continue-shopping-butotn col-6 mt-30">
+                                    <a href="{% url 'product_list' %}" class="btn btn--lg btn--black"><i
+                                            class="icon-arrow-left"></i> Продолжить покупку </a>
+                                </div>
+                            </div>
+                            <div class="cart-buttom-area">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="discount-code section-space--mt_60">
+                                            <h6 class="mb-30">Купонная скидка</h6>
+                                            <p>Введите код купона, если он у вас есть.</p>
+                                            <input type="text" name="name" placeholder="Код купона">
+                                            <button class="coupon-btn btn btn--lg btn--border_1" type="submit">
+                                                Использовать купон
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="cart_totals section-space--mt_60 ms-md-auto">
+                                            <div class="grand-total-wrap">
+                                                <div class="grand-total-content">
+                                                    <ul>
+                                                        <li>Итого <span>{{ cart.get_total_price }}</span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="grand-btn mt-30">
+                                                <a href="{% url 'orders:order_create' %}"
+                                                   class="btn--black btn--full text-center btn--lg">Завершить
+                                                    покупку</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- cart end -->
+
+        </div>
+
+    </div>
+{% endblock %}

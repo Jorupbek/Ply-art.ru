@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}
+    Заказ
+{% endblock %}
+{% block content %}
+    <!-- breadcrumb-area start -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row breadcrumb_box  align-items-center">
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-center text-sm-start">
+                            <h2 class="breadcrumb-title">Ваш заказ</h2>
+                        </div>
+                        <div class="col-lg-6  col-md-6 col-sm-6">
+                            <!-- breadcrumb-list start -->
+                            <ul class="breadcrumb-list text-center text-sm-end">
+                                <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                                <li class="breadcrumb-item active">Ваш заказ</li>
+                            </ul>
+                            <!-- breadcrumb-list end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb-area end -->
+
+    <div id="main-wrapper">
+        <div class="site-wrapper-reveal border-bottom">
+            <!-- checkout start -->
+            <div class="checkout-main-area section-space--ptb_90">
+                <div class="container">
+                    <div class="checkout-wrap">
+                        <form method="post" class="order-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="billing-info-wrap mr-100">
+                                        <h6 class="mb-20">Детали заказа</h6>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info mb-10">
+                                                    <label>Имя <span class="required"
+                                                                     title="required">*</span></label> {{ form.first_name }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="billing-info mb-10">
+                                                    <label>Номер телефона <span class="required"
+                                                                                title="required">*</span></label> {{ form.phone_number }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="billing-info mb-10">
+                                                    <label>Email </label> {{ form.email }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="billing-info mb-10">
+                                                    <label>Страна <span class="required"
+                                                                        title="required">*</span></label> {{ form.country }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="billing-info mb-10">
+                                                    <label>Адрес <span class="required"
+                                                                       title="required">*</span></label> {{ form.address }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="additional-info-wrap">
+                                            <h6 class="mb-10">Дополнительная информация</h6>
+                                            <label>Примечания к заказу (необязательно)</label>
+                                            {{ form.note }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="your-order-wrappwer tablet-mt__60 small-mt__60">
+                                        <h6 class="mb-20">Ваш заказ</h6>
+                                        <div class="your-order-area">
+                                            <div class="your-order-wrap gray-bg-4">
+                                                <div class="your-order-info-wrap">
+                                                    <div class="your-order-info">
+                                                        <ul>
+                                                            <li>Товар <span>кол-во</span></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="your-order-middle">
+                                                        <ul>
+                                                            {% for item in cart %}
+                                                                <li> {{ item.product.name }} - {{ item.quantity }} шт.
+                                                                    <span>{{ item.total_price }} </span></li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                    <div class="your-order-info order-total">
+                                                        <ul>
+                                                            <li><strong>Итого</strong>
+                                                                <span>{{ cart.get_total_price }} </span></li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="payment-area mt-30">
+                                                        <div class="single-payment">
+                                                            <h6 class="mb-10">Check payments</h6>
+                                                            <p>Please send a check to Store Name, Store Street, Store
+                                                                Town, Store State / County, Store Postcode.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="payment-method">
+                                            <p class="mt-30">Your personal data will be used to process your order,
+                                                support your experience throughout this website, and for other purposes
+                                                described in our <a href="#">privacy policy</a>.</p>
+                                        </div>
+                                        <div class="place-order mt-30">
+                                            <input type="submit" class="btn--full btn--black btn--lg text-center"
+                                                   value="Заказать">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- checkout end -->
+        </div>
+
+    </div>
+{% endblock %}
