@@ -76,6 +76,7 @@
                                 <div class="quickview-peragraph mt-10">
                                     <p>{{ product.description }}</p>
                                 </div>
+                            {% if product.select_attributes %}
                                 {% for select in product.select_attributes.all %}
                                     <div class="variable-color-selector mt-20 variations">
                                         <label>{{ select.name }}</label>
@@ -86,6 +87,7 @@
                                         </select>
                                     </div>
                                 {% endfor %}
+                            {% endif %}
                                 <input type="text" name="select" required="" id="id_select" hidden>
 
                                 <div class="quickview-action-wrap mt-30">
