@@ -111,26 +111,9 @@
                                     <span class="label">Категория: </span><a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
                                 </div>
 
-                                <div class="tagged_as item_meta">
-                                    <span class="label">Назначения: </span>
-{#                                    {% for tag in product.tags.all %}#}
-{#                                        <a href="{% url 'tagged' tag.slug %}">#{{ tag }}</a>#}
-{#                                    {% endfor %}#}
-                                </div>
 
                             </div>
                         </form>
-
-                                <script>
-                                    let st1 = document.getElementById('id_select');
-                                    let st2 = document.getElementById('select_value');
-                                    const selectElement = document.querySelector('.attrs');
-                                    st1.value = st2.value
-
-                                    selectElement.addEventListener('change', (event) => {
-                                      st1.value = event.target.value;
-                                    });
-                                </script>
                         </div>
                     </div>
                 </div>

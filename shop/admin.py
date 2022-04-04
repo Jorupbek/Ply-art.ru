@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from shop.models import Category, Product, Images, Attributes, SelectAttribute, SelectChoice
+from shop.models import Category, Product, Images, Attributes
 
 
 class ImagesDetailsInline(admin.StackedInline):
@@ -25,12 +25,3 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Attributes)
 class AttributesAdmin(admin.ModelAdmin):
     list_display = ['name', 'detail']
-
-
-class SelectAttributeInline(admin.StackedInline):
-    model = SelectChoice
-
-
-@admin.register(SelectAttribute)
-class ProductAdmin(admin.ModelAdmin):
-    inlines = [SelectAttributeInline]

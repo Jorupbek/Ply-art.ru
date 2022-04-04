@@ -1,6 +1,5 @@
 from django.db import models
 from django.urls import reverse
-from taggit.managers import TaggableManager
 
 from pages.models import Colors
 
@@ -30,10 +29,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
-    # tags = TaggableManager()
     attributes = models.ManyToManyField('Attributes', related_name='attributes')
-    select_attributes = models.ManyToManyField('SelectAttribute', related_name='products',
-                                               blank=True)
     name = models.CharField('Название продукта', max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, db_index=True)
     description = models.TextField('Описание продукта', blank=True)
@@ -71,22 +67,3 @@ class Attributes(models.Model):
     class Meta:
         verbose_name = 'Характеристрика (Ширина)'
         verbose_name_plural = 'Характеристрики'
-
-
-class SelectAttribute(models.Model):
-    name = models.CharField('Название', max_length=255)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Характеристрика select'
-        verbose_name_plural = 'Характеристрики select'
-
-
-class SelectChoice(models.Model):
-    name = models.CharField('Название', max_length=255)
-    attribute = models.ForeignKey(SelectAttribute, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
