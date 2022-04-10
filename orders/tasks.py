@@ -8,7 +8,8 @@ logger = get_task_logger(__name__)
 token = '5100919779:AAFPnAZxhiTF0LGjP6R54ZkCNZlUbkpvBHU'
 chatid = '-726388449'
 
-@shared_task()
+
+# @shared_task()
 def order_created(order_id):
     """Task to send an e-mail notification when an order is
     successfully created.

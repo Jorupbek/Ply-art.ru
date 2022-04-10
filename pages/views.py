@@ -4,7 +4,7 @@ from django.views import View
 from django.views.generic import DetailView
 
 from cart.forms import CartAddProductForm
-from pages.models import Slider, Contacts, Faq, Pages
+from pages.models import Slider, Contacts, Faq, Pages, About
 from shop.models import Product, Category
 
 
@@ -14,13 +14,18 @@ def home_page_view(request):
         'slides': Slider.objects.all(),
         'products': Product.objects.filter(in_home=True)[:8],
         'cart_product_form': cart_product_form,
-        'categories': Category.objects.all()
+        'categories': Category.objects.filter(in_home=True).order_by('position')[:5],
+        'about': About.objects.first(),
     }
     return render(request, 'pages/home.html', context)
 
 
 def about_page(request):
-    return render(request, 'pages/about_us.html', {'contacts': Contacts.objects.first()})
+    context = {
+        'contacts': Contacts.objects.first(),
+        'about': About.objects.first(),
+    }
+    return render(request, 'pages/about_us.html', context)
 
 
 def contacts_page(request):

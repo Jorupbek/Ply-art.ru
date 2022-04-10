@@ -6,7 +6,7 @@ from django.urls import path, include
 from pages.views import SendFormTelegram
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('obivan/', admin.site.urls),
     path('send-msg/', SendFormTelegram.as_view(), name='send_message'),
     path('cart/', include('cart.urls', namespace='cart')),
     path('', include('shop.urls')),

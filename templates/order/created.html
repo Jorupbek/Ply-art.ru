@@ -1,13 +1,20 @@
 {% extends "base.html" %}
 {% block meta %}
-<meta http-equiv="refresh" content="4; url ={% url 'home' %}"/>
+    <meta http-equiv="refresh" content="4; url ={% url 'home' %}"/>
 {% endblock %}
 
 {% block title %}
-    Thank you
+    Спасибо за Ваш заказ
 {% endblock %}
 
 {% block content %}
-    <h1>Thank you</h1>
-    <p>Your order has been successfully completed. Your order number is <strong>{{ order.id }}</strong>.</p>
+    <div class="container">
+        <br><br><br>
+        <div class="col-md-9">
+            <h1>Спасибо за Ваш заказ</h1>
+            <p>Ваш заказ на обработке. Вскоре наш менеджер свяжется с Вами. Номер Вашего заказа
+                <strong>№ {{ order.id }}</strong>.</p>
+        </div>
+        <br><br><br><br><br>
+    </div>
 {% endblock %}

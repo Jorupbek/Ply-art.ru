@@ -88,6 +88,7 @@
                         <li><i class="icon_pin"></i> {{ contacts.address }}</li>
                         <li><i class="icon_phone"></i><a href="tel:{{ contacts.phone_number }}"
                                                          class="hover-style-link">{{ contacts.phone_number }}</a></li>
+                        <li><i class="icon_mail"></i> <a href="mailto:{{ contacts.email }}" class="hover-style-link">{{ contacts.email }}</a></li>
 
                     </ul>
                 </div>
@@ -181,11 +182,13 @@
 
             <div class="mobile-menu-contact-info section-space--mt_60">
                 <h6>Наши контакты</h6>
-                <p>{{ contacts.address|safe }}
+                <p>
+                    {{ contacts.work_from|safe }}
                 <hr>
-                {{ contacts.work_from|safe }}
+                    <a href="tel:{{ contacts.phone_number }}" class="hover-style-link">{{ contacts.phone_number }}</a>
                 <hr>
-                <a href="tel:{{ contacts.phone_number }}" class="hover-style-link">{{ contacts.phone_number }}</a></p>
+                    {{ contacts.address|safe }}
+                </p>
             </div>
 
         </div>

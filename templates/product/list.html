@@ -1,7 +1,7 @@
 {% extends "base.html" %}{% load static %}
 
 {% block title %}
-    {% if category %}{{ category.name }}{% else %}Все товары{% endif %}
+    {% if category %}{{ category.name }}{% else %}Коллекция{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
                     <div class="row breadcrumb_box  align-items-center">
                         <div class="col-lg-6 col-md-6 col-sm-6 text-center text-sm-start">
                             <h2 class="breadcrumb-title">
-                                {% if category %}{{ category.name }}{% else %}Все товары{% endif %}
+                                {% if category %}{{ category.name }}{% else %}Коллекция{% endif %}
                             </h2>
                         </div>
                         <div class="col-lg-6  col-md-6 col-sm-6">
@@ -21,7 +21,7 @@
                             <ul class="breadcrumb-list text-center text-sm-end">
                                 <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
                                 <li class="breadcrumb-item active">
-                                    {% if category %}{{ category.name }}{% else %}Все товары{% endif %}</li>
+                                    {% if category %}{{ category.name }}{% else %}Коллекция{% endif %}</li>
                             </ul>
                             <!-- breadcrumb-list end -->
                         </div>
@@ -60,11 +60,11 @@
                             <div class="shop-widget widget-size">
                                 <div class="product-filter">
                                     <h6 class="mb-20">Назначение</h6>
-{#                                    <ul class="widget-nav-list">#}
-{#                                        {% for tag in tags %}#}
-{#                                            <li class="{% if tag == current_tag %}actived{% endif %}"><a href="{% url 'tagged' tag.slug %}">{{ tag.name }}</a></li>#}
-{#                                        {% endfor %}#}
-{#                                    </ul>#}
+                                    <ul class="widget-nav-list">
+                                        {% for tag in tags %}
+                                            <li class="{% if tag == current_tag %}actived{% endif %}"><a href="#">{{ tag.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
                                 </div>
                             </div>
 
@@ -124,7 +124,7 @@
                                                                 <p style="display: none">{{ cart_product_form }}</p>
                                                                 <button style="border: none;"><i
                                                                         class="p-icon icon-bag2"></i> <span
-                                                                        class="tool-tip">Add to cart</span></button>
+                                                                        class="tool-tip">В коризну</span></button>
                                                             </form>
                                                         </div>
                                                     </div>

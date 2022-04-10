@@ -60,6 +60,7 @@
                                             {% with product=item.product %}
                                                 <tr>
                                                     <td class="product-img">
+                                                    {{ item.images }}
                                                         <a href="{% url 'product_detail' product.slug %}"><img src="
                                                             {% if item.image %}
                                                                 {{ item.image }}

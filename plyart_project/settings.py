@@ -15,13 +15,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # my apps
     'pages.apps.PagesConfig',
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
 
+    # installed apps
     'tinymce',
     'taggit',
+    'import_export',
 ]
 
 MIDDLEWARE = [

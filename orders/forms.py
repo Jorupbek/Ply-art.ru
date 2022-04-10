@@ -13,7 +13,7 @@ class OrderCreateForm(forms.ModelForm):
                                    attrs={'class': 'billing-info', 'placeholder': 'Ваше email'}))
     address = forms.CharField(label="Адрес", widget=forms.TextInput(
         attrs={'class': 'billing-info', 'placeholder': 'Ваше адрес'}))
-    note = forms.CharField(label="Комментарий", widget=forms.Textarea(
+    note = forms.CharField(label="Комментарий", required=False, widget=forms.Textarea(
         attrs={'class': 'form-control', 'placeholder': 'Оставьте комментарий'}))
 
     class Meta:

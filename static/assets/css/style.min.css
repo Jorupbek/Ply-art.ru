@@ -4594,7 +4594,6 @@ input[type=checkbox] {
 }
 
 .elendo-video-box {
-    background: url(../images/banners/video-banner.webp);
     min-height: 450px;
     -webkit-transition: .5s;
     -o-transition: .5s;

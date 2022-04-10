@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 from tinymce.models import HTMLField
 
 
@@ -22,6 +21,7 @@ class Slider(models.Model):
 class Contacts(models.Model):
     phone_number = models.CharField('Номер телефона', max_length=255)
     phone_number2 = models.CharField('Номер телефона (Не обязательно)', max_length=255, null=True, blank=True)
+    description = models.TextField('Краткое описани для страницы контакты')
     email = models.CharField('Электронная почта', max_length=255)
     address = models.CharField('Адрес', max_length=255)
     work_from = models.TextField('График работы', max_length=255)
@@ -49,7 +49,7 @@ class Faq(models.Model):
 
 class About(models.Model):
     title = models.CharField('Название', max_length=255)
-    description = models.TextField('Описание')
+    description = HTMLField('Описание')
     image = models.ImageField(upload_to='about')
 
     def __str__(self):

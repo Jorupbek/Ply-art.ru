@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 from pages.models import Colors
 
@@ -12,6 +13,8 @@ class Images(models.Model):
 class Category(models.Model):
     name = models.CharField('Категория', max_length=200, db_index=True)
     slug = models.SlugField(max_length=200, unique=True)
+    in_home = models.BooleanField('На главную', default=False)
+    position = models.IntegerField('Позиция', null=True, blank=True, default=0)
     description = models.CharField('краткое описание', max_length=200, db_index=True)
     image = models.ImageField(upload_to='category/%Y/%m/%d', default='static/no_image.png', null=True, blank=True)
 
@@ -29,9 +32,10 @@ class Category(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
+    tags = TaggableManager()
     attributes = models.ManyToManyField('Attributes', related_name='attributes')
     name = models.CharField('Название продукта', max_length=200, db_index=True)
-    slug = models.SlugField(max_length=200, db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True, unique=True)
     description = models.TextField('Описание продукта', blank=True)
     price = models.IntegerField('Цена товара')
     sale = models.IntegerField('Скидка', default=0)
