@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static thumbnail %}
 {% block title %}
 Главная |
 {% endblock %}
@@ -123,12 +123,16 @@
                                         <div class="single-product-item text-center">
                                             <div class="products-images">
                                                 <a href="{{ product.get_absolute_url }}" class="product-thumbnail">
-                                                    <img
-                                                        src="{% if product.images_set.first.images %}
-                                                                {{ product.images_set.first.images.url }}
-                                                             {% else %}{% static 'no-image.png' %}{% endif %}"
-                                                        class="img-fluid" alt="Product Images" width="300"
-                                                        height="300">
+                                                    {% if product.images_set.first %}
+                                                        {% thumbnail product.images_set.first.images "269x269" crop="center" as im %}
+                                                            <img
+                                                            src="{{ im.url }}"
+                                                            class="img-fluid" alt="Product Images" width="{{ im.width }}"
+                                                            height="{{ im.height }}">
+                                                        {% endthumbnail %}
+                                                    {% else %}
+                                                        <img src="{% static 'no-image.png' %}" class="img-fluid" alt="Product Images" width="300" height="300">
+                                                    {% endif %}
                                                     {% if product.hots %}
                                                         <span class="ribbon out-of-stock">
                                                         HOTS

@@ -1,4 +1,5 @@
-{% extends 'base.html' %}{% load static %}
+{% extends 'base.html' %}
+{% load static thumbnail %}
 {% block title %}
 {{ product.name|capfirst }} |
 {% endblock %}
@@ -37,21 +38,36 @@
                             <!-- Product Details Left -->
                             <div class="product-details-left">
                                 <div class="product-details-images-2 slider-lg-image-2">
-                                    {% for x in product.images_set.all %}
+                                    {% for image in product.images_set.all %}
                                         <div class="easyzoom-style">
                                             <div class="easyzoom easyzoom--overlay">
-                                                <a href="{{ x.images.url }}" class="poppu-img"> <img
-                                                        src="{{ x.images.url }}" class="img-fluid" alt=""> </a>
+                                                {% thumbnail image.images "539x547" crop="center" as im %}
+                                                    <a href="{{ im.url }}" class="poppu-img">
+                                                        <img
+                                                        src="{{ im.url }}"
+                                                        class="img-fluid" alt="Product Images" width="{{ im.width }}"
+                                                        height="{{ im.height }}">
+                                                    </a>
+                                                {% endthumbnail %}
                                             </div>
                                         </div>
+                                    {% empty %}
+                                        <a href="{% static 'no-image.png' %}" class="poppu-img">
+                                            <img src="{% static 'no-image.png' %}" class="img-fluid" alt="{{ product.name}}"
+                                            width="539x547">
+                                        </a>
                                     {% endfor%}
 
                                 </div>
                                 <div class="product-details-thumbs-2 slider-thumbs-2">
-                                    {% for x in product.images_set.all %}
+                                    {% for image in product.images_set.all %}
                                         <div class="sm-image">
-                                            <img src="{{ x.images.url }}" width="75" height="75"
-                                                 alt="product image thumb">
+                                            {% thumbnail image.images "75x75" crop="center" as im %}
+                                                <img
+                                                src="{{ im.url }}"
+                                                class="img-fluid" alt="Product Images" width="{{ im.width }}"
+                                                height="{{ im.height }}">
+                                            {% endthumbnail %}
                                         </div>
                                     {% endfor%}
                                 </div>

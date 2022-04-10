@@ -1,4 +1,5 @@
-{% load static %}<!DOCTYPE html>
+{% load static thumbnail %}
+<!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
 <head>
@@ -213,10 +214,17 @@
 
                             <li class="minicart-product">
                                 <a class="product-item_remove" href="{% url "cart:cart_remove" product.pk %}"><i
-                                        class="icon-cross2"></i></a> <a class="product-item_img"
-                                                                        href="{% url "product_detail" product.slug %}">
-                                <img class="img-fluid" src="{{ product.image }}" alt="Product Image" width="76"
-                                     height="76"> </a>
+                                        class="icon-cross2"></i></a>
+                                <a class="product-item_img" href="{% url "product_detail" product.slug %}">
+                                    {% if product.image %}
+                                            <img class="img-fluid" src="{{ product.image }}" alt="{{ product.name }}" width="75"
+                                             height="75">
+                                    {% else %}
+                                        <img class="img-fluid" src="{% static 'no-image.png' %}" alt="{{ product.name }}" width="76"
+                                         height="76">
+                                    {% endif %}
+
+                                </a>
                                 <div class="product-item_content">
                                     <a class="product-item_title"
                                        href="{% url "product_detail" product.slug %}">{{ product.name }}</a> <label>Кол-во
